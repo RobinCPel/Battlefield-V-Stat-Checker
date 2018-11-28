@@ -1,4 +1,4 @@
-# 🔫 Battlefield V Stat Checker 🔫
+# 🔫 Battlefield V Stat Checker - Discord Bot 🔫
 A Discord bot for requesting Battlefield V stats.
 
 ## About
@@ -21,5 +21,9 @@ I would most certainly reccomend to run the bot on a device that's powered on 24
 You can use this shortcut to invite the bot to your Discord server, be sure to replace "CLIENT_ID_GOES_HERE" with your client ID❗❗  
 https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&permissions=514112
 
+## The bot in action
+<img src="Images/Example.png" width="500"/>
+
 ## Sidenotes 📝
 This Bot retrieves its data from [Battlefield Tracker](https://battlefieldtracker.com/), without them this bot could never have been realised. 🙏🏻  
+
