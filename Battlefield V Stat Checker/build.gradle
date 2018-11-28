@@ -18,9 +18,11 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0-RC1'
 
     compile "com.github.austinv11:Discord4J:2.9.3"
+    compile "org.json:json:20180813"
+    compile "org.jsoup:jsoup:1.11.3"
 }
 
 compileKotlin {
@@ -28,4 +30,16 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+
+task createJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Battlefield V Stat Checker',
+                'Implementation-Version': version,
+                'Main-Class': 'com.robinpel.battlefieldv_statchecker.core.Main'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

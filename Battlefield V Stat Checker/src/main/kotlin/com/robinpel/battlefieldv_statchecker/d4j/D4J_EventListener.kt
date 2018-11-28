@@ -21,16 +21,6 @@ class D4J_EventListener {
 
     @EventSubscriber fun onMessageReceivedEvent(event: MessageReceivedEvent) {
         Logger.log(this.toString(), "New Message \"${event.message}\"")
-        Command(event).execute()
+        Thread(Command(event)).start()
     }
-
-
-
-
-
-
 }
-
-
-
-

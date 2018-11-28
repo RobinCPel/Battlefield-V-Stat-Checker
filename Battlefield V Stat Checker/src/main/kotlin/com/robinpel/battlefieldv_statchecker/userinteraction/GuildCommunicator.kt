@@ -6,7 +6,7 @@ import sx.blah.discord.handle.obj.IGuild
 
 object GuildCommunicator {
 
-    @JvmStatic fun sendToGeneral(guild: IGuild, message: String, tts: Boolean) {
+    @JvmStatic fun sendToGeneral(guild: IGuild, message: String, tts: Boolean = false) {
         sendToChannel(guild.defaultChannel, message, tts)
     }
 
@@ -14,7 +14,7 @@ object GuildCommunicator {
         sendToChannel(guild.defaultChannel, eo)
     }
 
-    @JvmStatic fun sendToChannel(channel: IChannel, message: String, tts: Boolean) {
+    @JvmStatic fun sendToChannel(channel: IChannel, message: String, tts: Boolean = false) {
         channel.sendMessage(message, tts)
     }
 
