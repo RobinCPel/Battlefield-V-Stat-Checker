@@ -27,3 +27,5 @@ https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&
 ## Sidenotes 📝
 This Bot retrieves its data from [Battlefield Tracker](https://battlefieldtracker.com/), without them this bot could never have been realised. 🙏🏻  
 
+Your Bot Token will not be used for anything except for linking it with your launched instance of the Battlefield V Stat Checker, the token will not be stored anywhere other than in the text file on your computer. The token will neither be send over the internet to any backup server and will thus not be dispersed on the world wide web. 
+
