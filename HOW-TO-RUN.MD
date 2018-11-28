@@ -33,7 +33,7 @@ Discord will show you your bot's token, be sure to keep it save! If not, people 
 <img src="Images/EnterYourToken.png" width="700"/>  
 No need to worry, you just need to enter your Bot Token here, just as shown in the image above, and hit return.  
 After this it will either A. Complain about your token being wrong, or B. Run as intended.  
-If it does C. feel free to open an issue right [here](https://github.com/RobinCPel/Battlefield-V-Stat-Checker/issues) and if I am not busy with school or work I just might fix it. 😅  
+If it does C. feel free to open an issue right here: https://github.com/RobinCPel/Battlefield-V-Stat-Checker/issues and if I am not too busy with school or work I just might fix it. 😅  
 
 11. This step is optional, if you did not enter your correct Bot Token you can do one of the two things. Delete the "bot-token.json" file and reboot the bot, or open the "bot-token.json" file and replace the wrong token with the correct one as shown below  
 <img src="Images/EnterBotToken.png" width="600"/>  
