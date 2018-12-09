@@ -11,7 +11,8 @@ class D4J_EventListener {
 
     @EventSubscriber fun onLoginEvent(event: LoginEvent) {
         Logger.log(this.toString(), "Logged in")
-        event.client.changePlayingText("Battlefield™ V")
+        //event.client.changePlayingText("Battlefield™ V")
+        event.client.changePlayingText("!bfvstats ORIGIN_USERNAME")
     }
 
     @EventSubscriber fun onReadyEvent(event: ReadyEvent) {
