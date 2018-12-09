@@ -28,17 +28,23 @@ class Command(private val event: MessageReceivedEvent): Runnable {
     }
 
     private fun execute() {
-        if (invalid) { Logger.debug("Command@Coroutine", "Invalid command detected") ; return }
-        Logger.log("Command@Coroutine", "Valid command detected")
+        if (invalid) { Logger.debug("Command@Thread", "Invalid command detected") ; return }
+        Logger.log("Command@Thread", "Valid command detected")
+        event.channel.typingStatus = true
 
-        val stats = statRetriever.getStats(playerName)
+        try {
+            val stats = statRetriever.getStats(playerName)
 
-        // Check whether something went wrong or not
-        if (stats == "ERR") { GuildCommunicator.sendToChannel(event.channel, "Could not retrieve the stats.") ; return }
-        if (stats.isEmpty()) { GuildCommunicator.sendToChannel(event.channel, "Could not find this user.") ; return }
+            // Check whether something went wrong or not
+            if (stats.isEmpty()) { GuildCommunicator.sendToChannel(event.channel, "No stats found.") ; return }
+            if (stats[0] == "ERR") { GuildCommunicator.sendToChannel(event.channel, "Could not retrieve the stats.") ; return }
 
-        val embedObject = embedData(stats.split("\n"))
-        GuildCommunicator.sendToChannel(event.channel, embedObject)
+            val embedObject = embedData(stats)
+            GuildCommunicator.sendToChannel(event.channel, embedObject)
+
+        }
+        catch (e: Exception) { Logger.err(this.toString(), "An error occurred while getting the stats") }
+        finally { event.channel.typingStatus = false }
     }
 
     private fun embedData(data: List<String>): EmbedObject {
@@ -52,6 +58,11 @@ class Command(private val event: MessageReceivedEvent): Runnable {
             embedObject.author = EmbedObject.AuthorObject("Battlefield V Stat Checker", Constants.Address.GIT_REPO, Constants.Address.BOT_ICON, Constants.Address.BOT_ICON)
             embedObject.color = 0x6B81CA
             embedObject.footer = EmbedObject.FooterObject("Battlefieldtracker.com", Constants.Address.BFT_SITE, Constants.Address.BFT_SITE)
+
+            if (data.size < 36) {
+                embedObject.fields = arrayOf(EmbedObject.EmbedFieldObject("Insufficient data, the user needs at least one of every stat listed below", "kill, death, finished match, assist, heal, revive, resupply", false))
+                return embedObject
+            }
 
             //var embeddedFields = EmbedObject.EmbedFieldObject()[]
             var embeddedObjectList = arrayOf(

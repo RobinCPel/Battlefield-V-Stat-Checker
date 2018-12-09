@@ -65,7 +65,7 @@ private class BotBooter {
             if (!test) { tokenFile.writeText("{\n    \"token\": \"$newBotToken\"\n}") }
             else { tokenFile.writeText("{\n    \"test\": \"$newBotToken\"\n}") }
         }
-        else { Logger.log(this.toString(), "TokeFile found! Reading content...") }
+        else { Logger.log(this.toString(), "TokenFile found! Reading content...") }
 
         return try { JSONObject(tokenFile.readText()) }
         catch (e: Exception) { e.printStackTrace() ; null }
