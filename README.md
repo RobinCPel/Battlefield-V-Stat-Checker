@@ -1,4 +1,4 @@
-# Battlefield V Stat Checker - Discord Bot
+# Battlefield V Stat Checker - Discord Bot <img src="Images/Stats.png" align="right" width="90" height="90"/>  
 A Discord bot for requesting Battlefield V stats.
 
 ## About
