@@ -28,7 +28,8 @@ https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&
 The .jar files can be found [here](Releases). 
 
 ## Building the project yourself 🔨
-The project is an _IntelliJ IDEA, Gradle, Java project with Kotlin support_. So if you open it with IntelliJ it should not be an issue to build it yourself. However, if you decide to do it without IntelliJ you still would need to have Kotlin and Gradle installed somehow, unfortunately I cannot help with this method since I have no experience with it. 
+The project is an _IntelliJ IDEA, Gradle, Java project with Kotlin support_. So if you open it with IntelliJ it should not be an issue to build it yourself. However, if you decide to do it without IntelliJ you still would need to have Kotlin and Gradle installed somehow, unfortunately I cannot help with this method since I have no experience with it.  
+More about [IntelliJ IDEA](https://www.jetbrains.com/idea/), [Gradle](https://gradle.org/) or [Kotlin](https://kotlinlang.org/).
 
 ## Sidenotes 📝
 This Bot retrieves its data from [Battlefield Tracker](https://battlefieldtracker.com/), without them this bot could never have been realised.  
