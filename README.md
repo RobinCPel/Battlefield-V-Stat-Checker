@@ -22,7 +22,8 @@ You can use this shortcut to invite the bot to your Discord server, be sure to r
 https://discordapp.com/oauth2/authorize?client_id=CLIENT_ID_GOES_HERE&scope=bot&permissions=514112
 
 ## The bot in action 🚀
-<img src="Images/Example.png" width="500"/>
+<img src="Images/Example2.png" width="500"/> 
+<img src="Images/Example.png" width="500"/> 
 
 ## Releases 📚
 The .jar files can be found [here](Releases). 
