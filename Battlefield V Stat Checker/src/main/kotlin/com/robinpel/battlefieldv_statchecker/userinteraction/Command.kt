@@ -5,6 +5,8 @@ import com.robinpel.battlefieldv_statchecker.core.Constants
 import com.robinpel.battlefieldv_statchecker.core.Constants.Operation.HEADER
 import com.robinpel.battlefieldv_statchecker.core.Constants.Operation.DELIMITER
 import com.robinpel.battlefieldv_statchecker.core.Logger
+import com.robinpel.battlefieldv_statchecker.core.Platform
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import sx.blah.discord.api.internal.json.objects.EmbedObject
@@ -14,13 +16,27 @@ import sx.blah.discord.handle.impl.obj.Embed
 class Command(private val event: MessageReceivedEvent): Runnable {
     private val invalid: Boolean = (!(event.message.content.startsWith(HEADER, true)))
     private val playerName: String
+    private val platform: Platform?
     private val statRetriever = BattlefieldV_StatRetriever()
 
     init {
         val parts = (event.message.content).split(DELIMITER)
 
-        // Get the given player name
-        playerName = if (parts.size > 1) parts[1] else ""
+        if (parts.size < 3) {
+            platform = null
+            playerName = ""
+        }
+        else {
+            // Get the given platform & player name
+            platform = when(parts[1].toLowerCase()) {
+                "origin" -> Platform.Origin
+                "psn" -> Platform.PSN
+                "xbl" -> Platform.XBL
+                else -> null
+            }
+
+            playerName = parts[2]
+        }
     }
 
     override fun run() {
@@ -33,7 +49,16 @@ class Command(private val event: MessageReceivedEvent): Runnable {
         event.channel.typingStatus = true
 
         try {
-            val stats = statRetriever.getStats(playerName)
+            if (platform != null)   printUserStats()
+            else                    printExtraHelp()
+        }
+        catch (e: java.lang.Exception) { e.printStackTrace() }
+        finally { event.channel.typingStatus = false }
+    }
+
+    private fun printUserStats() {
+        try {
+            val stats = statRetriever.getStats(playerName, platform!!)
 
             // Check whether something went wrong or not
             if (stats.isEmpty()) { GuildCommunicator.sendToChannel(event.channel, "No stats found.") ; return }
@@ -41,10 +66,8 @@ class Command(private val event: MessageReceivedEvent): Runnable {
 
             val embedObject = embedData(stats)
             GuildCommunicator.sendToChannel(event.channel, embedObject)
-
         }
         catch (e: Exception) { Logger.err(this.toString(), "An error occurred while getting the stats") }
-        finally { event.channel.typingStatus = false }
     }
 
     private fun embedData(data: List<String>): EmbedObject {
@@ -53,7 +76,7 @@ class Command(private val event: MessageReceivedEvent): Runnable {
         try {
             embedObject.title = playerName
             embedObject.description = "Battlefield V"
-            embedObject.url = Constants.BFV.ADDRESS_PREFIX + playerName + Constants.BFV.ADDRESS_SUFFIX
+            embedObject.url = platform!!.value + playerName + Constants.BFV.ADDRESS_SUFFIX
             embedObject.thumbnail = EmbedObject.ThumbnailObject(Constants.Address.BFV_ICON, Constants.Address.BFV_ICON, 10, 10)
             embedObject.author = EmbedObject.AuthorObject("Battlefield V Stat Checker", Constants.Address.GIT_REPO, Constants.Address.BOT_ICON, Constants.Address.BOT_ICON)
             embedObject.color = 0x6B81CA
@@ -85,6 +108,11 @@ class Command(private val event: MessageReceivedEvent): Runnable {
         catch (e: Exception) { e.printStackTrace() }
 
         return embedObject
+    }
+
+    private fun printExtraHelp() {
+        val helpMessage = "To retrieve a user's Battlefield V Stats, use one of the following commands. \n```\n!bfvstats origin USERNAME\n!bfvstats psn USERNAME\n!bfvstats xbl USERNAME\n```"
+        GuildCommunicator.sendToChannel(event.channel, helpMessage)
     }
 
 }

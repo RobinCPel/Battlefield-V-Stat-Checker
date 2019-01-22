@@ -11,8 +11,7 @@ class D4J_EventListener {
 
     @EventSubscriber fun onLoginEvent(event: LoginEvent) {
         Logger.log(this.toString(), "Logged in")
-        //event.client.changePlayingText("Battlefield™ V")
-        event.client.changePlayingText("!bfvstats ORIGIN_USERNAME")
+        event.client.changePlayingText("!bfvstats help")
     }
 
     @EventSubscriber fun onReadyEvent(event: ReadyEvent) {
@@ -21,6 +20,7 @@ class D4J_EventListener {
     }
 
     @EventSubscriber fun onMessageReceivedEvent(event: MessageReceivedEvent) {
+        if (event.author.isBot) return      // ignore bot messages
         Logger.log(this.toString(), "New Message \"${event.message}\"")
         Thread(Command(event)).start()
     }

@@ -7,7 +7,9 @@ class Constants {
     }
 
     object BFV {
-        @JvmStatic val ADDRESS_PREFIX: String = "https://battlefieldtracker.com/bfv/profile/origin/"
+        @JvmStatic val ORIGIN_ADDRESS_PREFIX: String = "https://battlefieldtracker.com/bfv/profile/origin/"
+        @JvmStatic val PSN_ADDRESS_PREFIX: String = "https://battlefieldtracker.com/bfv/profile/psn/"
+        @JvmStatic val XBOX_ADDRESS_PREFIX: String = "https://battlefieldtracker.com/bfv/profile/xbl/"
         @JvmStatic val ADDRESS_SUFFIX: String = "/overview"
     }
 
