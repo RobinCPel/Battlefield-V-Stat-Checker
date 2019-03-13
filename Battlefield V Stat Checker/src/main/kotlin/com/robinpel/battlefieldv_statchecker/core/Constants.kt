@@ -19,4 +19,11 @@ class Constants {
         @JvmStatic val GIT_REPO: String = "https://github.com/RobinCPel/Battlefield-V-Stat-Checker"
         @JvmStatic val BFT_SITE: String = "https://trackerfiles.blob.core.windows.net/trackernetwork/logos/btrlogo.png"
     }
+
+    object StatIndex {
+        @JvmStatic val START: Int = 8
+        @JvmStatic val END: Int = 32
+        @JvmStatic val SIZE: Int = END - START
+    }
+
 }

@@ -9,7 +9,7 @@ class BattlefieldV_StatRetriever {
         val rawHtml = getRawHtml(platform.value + playerName + Constants.BFV.ADDRESS_SUFFIX)
         rawHtml ?: return listOf("ERR")
         val rawInfo = extractInformation(rawHtml)
-        return removeExcessInformation(rawInfo)
+        return removeExcessInformation(rawInfo.toMutableList())
     }
 
     private fun getRawHtml(ofAddress: String): String? {
@@ -24,9 +24,14 @@ class BattlefieldV_StatRetriever {
         return newHtml.split("\n")
     }
 
-    private fun removeExcessInformation(data: List<String>): List<String> {
-        if (data.size < 48) return listOf()
-        return data.subList(12, 48)
+    private fun removeExcessInformation(data: MutableList<String>): List<String> {
+
+        for (index in data.indices.reversed()) {
+            if (data[index].toLowerCase().startsWith("top ") && data[index].endsWith("%"))
+                data.removeAt(index)
+        }
+        if (data.size < Constants.StatIndex.END) return listOf()
+        return data.subList(Constants.StatIndex.START, Constants.StatIndex.END)
     }
 
 }

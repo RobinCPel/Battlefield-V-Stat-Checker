@@ -67,7 +67,7 @@ class Command(private val event: MessageReceivedEvent): Runnable {
             val embedObject = embedData(stats)
             GuildCommunicator.sendToChannel(event.channel, embedObject)
         }
-        catch (e: Exception) { Logger.err(this.toString(), "An error occurred while getting the stats") }
+        catch (e: Exception) { Logger.err(this.toString(), "An error occurred while getting the stats") ; e.printStackTrace() }
     }
 
     private fun embedData(data: List<String>): EmbedObject {
@@ -82,26 +82,13 @@ class Command(private val event: MessageReceivedEvent): Runnable {
             embedObject.color = 0x6B81CA
             embedObject.footer = EmbedObject.FooterObject("Battlefieldtracker.com", Constants.Address.BFT_SITE, Constants.Address.BFT_SITE)
 
-            if (data.size < 36) {
+            if (data.size < Constants.StatIndex.SIZE) {
                 embedObject.fields = arrayOf(EmbedObject.EmbedFieldObject("Insufficient data, the user needs at least one of every stat listed below", "kill, death, finished match, assist, heal, revive, resupply", false))
                 return embedObject
             }
 
-            //var embeddedFields = EmbedObject.EmbedFieldObject()[]
-            var embeddedObjectList = arrayOf(
-                EmbedObject.EmbedFieldObject(data[0],  "${data[ 1]} (${data[ 2]})", true),
-                EmbedObject.EmbedFieldObject(data[3],  "${data[ 4]} (${data[ 5]})", true),
-                EmbedObject.EmbedFieldObject(data[6],  "${data[ 7]} (${data[ 8]})", true),
-                EmbedObject.EmbedFieldObject(data[9],  "${data[10]} (${data[11]})", true),
-                EmbedObject.EmbedFieldObject(data[12], "${data[13]} (${data[14]})", true),
-                EmbedObject.EmbedFieldObject(data[15], "${data[16]} (${data[17]})", true),
-                EmbedObject.EmbedFieldObject(data[18], "${data[19]} (${data[20]})", true),
-                EmbedObject.EmbedFieldObject(data[21], "${data[22]} (${data[23]})", true),
-                EmbedObject.EmbedFieldObject(data[24], "${data[25]} (${data[26]})", true),
-                EmbedObject.EmbedFieldObject(data[27], "${data[28]} (${data[29]})", true),
-                EmbedObject.EmbedFieldObject(data[30], "${data[31]} (${data[32]})", true),
-                EmbedObject.EmbedFieldObject(data[33], "${data[34]} (${data[35]})", true)
-            )
+            val embeddedObjectList = Array<EmbedObject.EmbedFieldObject?>(data.size/2) { null }
+            for (index in 0 until data.size step 2) embeddedObjectList[index/2] = EmbedObject.EmbedFieldObject(data[index], data[index+1], true)
 
             embedObject.fields = embeddedObjectList
         }
