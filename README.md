@@ -1,6 +1,8 @@
 # Battlefield V Stat Checker - Discord Bot <img src="Images/Stats.png" align="right" width="90" height="90"/>  
 A Discord bot for requesting Battlefield V stats.
 
+## It is broken rn I believe (because batlefieldtracker.com changed their html code), and I am too busy to fix it. 🙃
+
 ## About ✏
 Battlefield V Stat Checker is a Discord bot written for me and my friends to show off our amazing Battlefield V skills in our Discord server!  
 It is written 100% in Kotlin (if you exclude the Java libraries It's using), Kotlin is a relatively young language which you can get more info about [here](https://kotlinlang.org/).  
