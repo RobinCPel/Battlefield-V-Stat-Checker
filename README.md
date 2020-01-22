@@ -1,7 +1,7 @@
 # Battlefield V Stat Checker - Discord Bot <img src="Images/Stats.png" align="right" width="90" height="90"/>  
 A Discord bot for requesting Battlefield V stats.
 
-## It is broken rn I believe (because batlefieldtracker.com changed their html code), and I am too busy to fix it. 🙃
+#### Unsure whether it still functions as it is supposed to, I am currently too busy to fully test and fix it 🙃
 
 ## About ✏
 Battlefield V Stat Checker is a Discord bot written for me and my friends to show off our amazing Battlefield V skills in our Discord server!  
